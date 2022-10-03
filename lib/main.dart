@@ -16,6 +16,26 @@ class Quizzler extends StatefulWidget {
 class _QuizzlerState extends State<Quizzler> {
   List<Icon> scoreKeeper = [];
 
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+
+    setState(() {
+      if (correctAnswer == userPickedAnswer) {
+        scoreKeeper.add(const Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scoreKeeper.add(const Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+
+      quizBrain.nextQuestion();
+    });
+  }
+
   List<bool> answers = [false, true, true];
 
   int currentQuestion = 0;
@@ -44,16 +64,7 @@ class _QuizzlerState extends State<Quizzler> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer = quizBrain.getCorrectAnswer();
-
-                        if (correctAnswer == true) {
-                        } else {}
-
-                        setState(() {
-                          scoreKeeper.add(verifyAnswer(true));
-
-                          quizBrain.nextQuestion();
-                        });
+                        checkAnswer(true);
                       },
                       child: Container(
                         height: 80.0,
@@ -73,20 +84,7 @@ class _QuizzlerState extends State<Quizzler> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer = quizBrain.getCorrectAnswer();
-
-                        if (correctAnswer == false) {
-                        } else {}
-                        setState(() {
-                          scoreKeeper.add(verifyAnswer(false));
-
-                          if (currentQuestion >=
-                              quizBrain.getQuestions().length - 1) {
-                            currentQuestion = 0;
-                          } else {
-                            currentQuestion++;
-                          }
-                        });
+                        checkAnswer(false);
                       },
                       child: Container(
                         height: 80.0,
@@ -113,19 +111,5 @@ class _QuizzlerState extends State<Quizzler> {
         ),
       ),
     );
-  }
-
-  Icon verifyAnswer(bool answer) {
-    if (answer == quizBrain.getCorrectAnswer()) {
-      return const Icon(
-        Icons.check,
-        color: Colors.green,
-      );
-    } else {
-      return const Icon(
-        Icons.close,
-        color: Colors.red,
-      );
-    }
   }
 }

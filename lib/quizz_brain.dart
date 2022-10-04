@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:quizzler_flutter/question.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class QuizBrain {
   int _currentQuestion = 0;
@@ -63,6 +65,11 @@ class QuizBrain {
     } else {
       _currentQuestion++;
     }
+  }
+
+  int getCurrentQuestion() {
+    int currentQuestion = _currentQuestion;
+    return currentQuestion;
   }
 
   String getQuestionText() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzler_flutter/quizz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 void main() {
@@ -20,6 +21,23 @@ class _QuizzlerState extends State<Quizzler> {
     bool correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "RFLUTTER ALERT",
+        desc: "Flutter is more awesome with RFlutter Alert.",
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+            child: const Text(
+              "COOL",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ],
+      ).show();
+
       if (correctAnswer == userPickedAnswer) {
         scoreKeeper.add(const Icon(
           Icons.check,
